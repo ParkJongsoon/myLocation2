@@ -97,7 +97,7 @@ public class Map
     private void showCurrentLocation(Location location)
     {
         LatLng curPoint = new LatLng(location.getLatitude(), location.getLongitude());
-        _map.animateCamera(CameraUpdateFactory.newLatLngZoom(curPoint, 15));
+        _map.animateCamera(CameraUpdateFactory. newLatLngZoom(curPoint, 15));
         checkLocation(curPoint.latitude,curPoint.longitude);
     }
 

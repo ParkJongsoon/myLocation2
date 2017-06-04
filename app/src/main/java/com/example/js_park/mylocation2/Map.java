@@ -101,10 +101,8 @@ public class Map
         checkLocation(curPoint.latitude,curPoint.longitude);
     }
 
-    protected void selectDestination(LatLng latLng,GoogleMap googleMap)
+    protected void selectDestination(GoogleMap googleMap,double latitude, double longitude )
     {
-        _myCenter = latLng;
-
         googleMap.addMarker(new MarkerOptions().position(_myCenter).snippet("Lat:"+ _myCenter.latitude+ "Lng:" + _myCenter.longitude)
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
     }

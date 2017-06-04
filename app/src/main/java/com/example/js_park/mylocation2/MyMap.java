@@ -2,6 +2,7 @@ package com.example.js_park.mylocation2;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,23 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.example.js_park.mylocation2.DialogActivity.markerLatitude;
+import static com.example.js_park.mylocation2.DialogActivity.markerLongitude;
+import static com.example.js_park.mylocation2.DialogActivity.markerName;
+
 public class MyMap extends Fragment
 {
     GoogleMap _map;
@@ -26,7 +44,6 @@ public class MyMap extends Fragment
     Map makingMapObject;
     DialogActivity _dialogActivity;
     static LatLng touchLatLng;
-
 
     @Nullable
     @Override

@@ -83,9 +83,6 @@ public class DialogActivity extends Dialog implements View.OnTouchListener {
         // 확인 버튼을 클릭하면 입력한 값을 적절히 설정한 후 다이얼로그를 닫음
         if (v == addOK) {
             key=1;
-//            markerName = inputName.getText().toString();
-//            markerLatitude = inputLatitude.getText().toString();
-//            markerLongitude = inputLongitude.getText().toString();
             marker.set_name(inputName.getText().toString());
             marker.set_latitude(inputLatitude.getText().toString());
             marker.set_lonitude(inputLongitude.getText().toString());

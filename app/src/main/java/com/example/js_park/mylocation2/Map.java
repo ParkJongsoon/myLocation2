@@ -32,7 +32,6 @@ public class Map
 
     protected void requestMyLocation()
     {
-        Log.d("requestMyLocation","requestMyLocation");
         LocationManager manager = (LocationManager) _context.getSystemService(Context.LOCATION_SERVICE);
 
         try {
@@ -42,7 +41,6 @@ public class Map
                     {
                         @Override
                         public void onLocationChanged(Location location) {
-                            Log.d("test","test");
                             showCurrentLocation(location);
                         }
 
@@ -101,9 +99,11 @@ public class Map
         checkLocation(curPoint.latitude,curPoint.longitude);
     }
 
-    protected void selectDestination(GoogleMap googleMap,double latitude, double longitude )
+    protected void selectDestination(LatLng latLng,GoogleMap googleMap)
     {
-        googleMap.addMarker(new MarkerOptions().position(_myCenter).snippet("Lat:"+ _myCenter.latitude+ "Lng:" + _myCenter.longitude)
+        _myCenter = latLng;
+        googleMap.addMarker(new MarkerOptions().position(_myCenter).
+                snippet("Lat:"+ _myCenter.latitude+ "Lng:" + _myCenter.longitude)
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
     }
 

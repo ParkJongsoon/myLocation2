@@ -1,12 +1,9 @@
 package com.example.js_park.mylocation2;
 
-import android.content.Context;
 import android.content.DialogInterface;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,29 +15,6 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.example.js_park.mylocation2.DialogActivity.markerLatitude;
-import static com.example.js_park.mylocation2.DialogActivity.markerLongitude;
-import static com.example.js_park.mylocation2.DialogActivity.markerName;
 
 public class MyMap extends Fragment
 {
@@ -123,15 +97,15 @@ public class MyMap extends Fragment
 
     public void selectMap()
     {
+        makingMapObject.selectDestination(touchLatLng,_map);
 
-        makingMapObject.selectDestination(_map,touchLatLng.latitude,touchLatLng.longitude);
     }
 
     public void showDialog(LatLng latLng)
     {
-        Log.d("제발 please....",String.valueOf(latLng));
         _dialogActivity.show();
     }
+
 }
 
 

@@ -17,7 +17,6 @@
             android:id="@+id/markkerName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="여기에 사이트 이름을 입력하세요"
             android:selectAllOnFocus="true"
             android:singleLine="true" />
     </TableRow>

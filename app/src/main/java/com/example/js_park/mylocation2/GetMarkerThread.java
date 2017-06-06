@@ -6,7 +6,9 @@ import android.os.Handler;
 import android.util.Log;
 
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,7 +36,6 @@ public class GetMarkerThread extends Thread
     private static final String marker_name = "marker_name";
     private static final String marker_latitude = "marker_latitude";
     private static final String marker_longitude = "marker_longitude";
-    JSONArray _jsonArray = null;
 
     public GetMarkerThread(String url,Context context,GoogleMap gmap)
     {
@@ -46,16 +47,16 @@ public class GetMarkerThread extends Thread
     //region GetMarkerThread
     public void run()
     {
-        map = new Map(_context,_map);
+        map = new Map();
         try
         {
 //            final String output = request(_url);
-            getMarker(_url);
             _handler.post(new Runnable()
             {
                 @Override
                 public void run()
                 {
+                    getMarker(_url);
                     Log.d("return","test_이따 주석 푸셈 그리고 출력 변수 output 변경");
                 }
             });
@@ -64,52 +65,6 @@ public class GetMarkerThread extends Thread
             Log.d("run",e.toString());
         }
     }
-
-    private String request(String url)
-    {
-        StringBuilder output = new StringBuilder();
-        try
-        {
-            URL inputUrl = new URL(url);
-            //URL 객체를 이용(url)하여 HTTPURLConnetion 객체 생성
-            HttpURLConnection conn = (HttpURLConnection)inputUrl.openConnection();
-
-            if(conn!=null)
-            {
-                conn.setConnectTimeout(10000); //ms이므로 10초
-                conn.setRequestMethod("GET"); //요청하는 메소드는 가져와야 하므로 getegetegetegetet겟잇뷰티
-                conn.setDoInput(true);
-                conn.setDoOutput(true);
-                //서버 접속하여 요청 -> 여기서 내부적으로 웹서버에 페이지를 요청하는 과정 수행
-                int resCode = conn.getResponseCode();
-
-                //응답결과를 읽기위한 스트림 객체
-                BufferedReader reader = new BufferedReader(
-                        new InputStreamReader(conn.getInputStream()));
-
-                String line = null; //line
-                //라인별로 반복하여 읽기위해 while 반복문 사용
-                while(true)
-                {
-                    //반복되는 동안 한 줄씩 읽어 결과를 문자열에 추가
-                    line = reader.readLine();
-                    if(line==null)
-                    {
-                        break;
-                    }
-                    output.append(line+"\n");
-                }
-                reader.close();
-                conn.disconnect();
-                }
-        }
-        catch (Exception ex)
-        {
-            Log.d("request_exception_is",ex.toString());
-        }
-        return output.toString();
-    }
-    //endregion
 
     //region AsyncTask
 
@@ -164,31 +119,28 @@ public class GetMarkerThread extends Thread
         ArrayList<Marker> _marker = new ArrayList<>();
         try
         {
-            Log.d("JSONOBJECT","GOGO");
-            JSONObject jsonObj = new JSONObject(_getData);
-            Log.d("JSONOBJECT",_getData.toString());
-            _jsonArray = jsonObj.getJSONArray(TAG_RESULTS);
+            //JSONArray에 가져온 getData 삽입
+            JSONArray jsonArray = new JSONArray(_getData);
 
-            for (int i = 0; i < _jsonArray.length(); i++)
+            for (int i = 0; i < jsonArray.length(); i++)
             {
+                //JSONArray 만큼 반복
+                JSONObject _object = jsonArray.getJSONObject(i);
 
-                Marker marker = new Marker();
-
-                JSONObject c = _jsonArray.getJSONObject(i);
-
-                String name = c.getString(marker_name);
-                String latitude = c.getString(marker_latitude);
-                String longitude = c.getString(marker_longitude);
-
+                String name = _object.getString(marker_name);
+                String latitude = _object.getString(marker_latitude);
+                String longitude = _object.getString(marker_longitude);
                 LatLng latLng = new LatLng(Double.parseDouble(latitude),Double.parseDouble(longitude));
-                Map markingMap = new Map(_context,_map);
+                Map markingMap = new Map();
                 markingMap.selectDestination(latLng,_map);
 
-//                marker.set_name(name);
-//                marker.set_latitude(latitude);
-//                marker.set_lonitude(longitude);
-//
-//                _marker.add(marker);
+                Marker marker = new Marker();
+                marker.set_name(name);
+                marker.set_latitude(latitude);
+                marker.set_lonitude(longitude);
+
+                _marker.add(marker);
+                Log.d("count_i_is",String.valueOf(i));
             }
         }
         catch (JSONException e)

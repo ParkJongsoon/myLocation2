@@ -30,6 +30,11 @@ public class Map
         _map = gmap;
     }
 
+    public Map()
+    {
+
+    }
+
     protected void requestMyLocation()
     {
         LocationManager manager = (LocationManager) _context.getSystemService(Context.LOCATION_SERVICE);
@@ -103,6 +108,7 @@ public class Map
     {
         Log.d("PLEASE_LATLNG",latLng.toString());
         _myCenter = latLng;
+
         googleMap.addMarker(new MarkerOptions().position(_myCenter)
                 .snippet("Lat:"+ _myCenter.latitude+ "Lng:" + _myCenter.longitude)
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));

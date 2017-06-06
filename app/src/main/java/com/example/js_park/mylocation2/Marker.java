@@ -34,7 +34,6 @@ public class Marker
 
     public void set_lonitude(String marker_longitude) {
         this._marker_longitude = marker_longitude;
-        Log.d("test...",_marker_latitude);
     }
 
     @Override

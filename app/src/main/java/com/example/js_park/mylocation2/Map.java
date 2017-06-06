@@ -101,9 +101,10 @@ public class Map
 
     protected void selectDestination(LatLng latLng,GoogleMap googleMap)
     {
+        Log.d("PLEASE_LATLNG",latLng.toString());
         _myCenter = latLng;
-        googleMap.addMarker(new MarkerOptions().position(_myCenter).
-                snippet("Lat:"+ _myCenter.latitude+ "Lng:" + _myCenter.longitude)
+        googleMap.addMarker(new MarkerOptions().position(_myCenter)
+                .snippet("Lat:"+ _myCenter.latitude+ "Lng:" + _myCenter.longitude)
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
     }
 

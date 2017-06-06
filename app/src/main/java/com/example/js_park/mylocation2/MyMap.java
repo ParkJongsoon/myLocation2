@@ -24,6 +24,7 @@ public class MyMap extends Fragment
     Map makingMapObject;
     DialogActivity _dialogActivity;
     static LatLng touchLatLng;
+    GetMarkerThread _getMarkerThread;
 
     @Nullable
     @Override
@@ -32,9 +33,12 @@ public class MyMap extends Fragment
         makingMapObject = new Map(getActivity(), _map);
         root_page = (ViewGroup) inflater.inflate(R.layout.activity_my_map, container, false);
         mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+        _getMarkerThread = new GetMarkerThread("http://118.91.118.27:52273/test",getActivity(),_map);
+        _getMarkerThread.start();
         _dialogActivity = new DialogActivity(getActivity());
         _dialogActivity.setTitle("마커 추가");
 
+        //region Marker
         //그거 머냐 다이얼로그가 사라지면?!
         _dialogActivity.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
@@ -54,6 +58,9 @@ public class MyMap extends Fragment
             }
         });
 
+        //endregion
+
+        //region mapInit
         mapFragment.getMapAsync(new OnMapReadyCallback()
         {
             @Override
@@ -92,20 +99,20 @@ public class MyMap extends Fragment
         {
             e.printStackTrace();
         }
+        //endregion
+
         return root_page;
     }
 
     public void selectMap()
     {
         makingMapObject.selectDestination(touchLatLng,_map);
-
     }
 
     public void showDialog(LatLng latLng)
     {
         _dialogActivity.show();
     }
-
 }
 
 

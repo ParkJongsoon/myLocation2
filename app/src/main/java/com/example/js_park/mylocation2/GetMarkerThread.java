@@ -166,10 +166,12 @@ public class GetMarkerThread extends Thread
         {
             Log.d("JSONOBJECT","GOGO");
             JSONObject jsonObj = new JSONObject(_getData);
+            Log.d("JSONOBJECT",_getData.toString());
             _jsonArray = jsonObj.getJSONArray(TAG_RESULTS);
 
             for (int i = 0; i < _jsonArray.length(); i++)
             {
+
                 Marker marker = new Marker();
 
                 JSONObject c = _jsonArray.getJSONObject(i);

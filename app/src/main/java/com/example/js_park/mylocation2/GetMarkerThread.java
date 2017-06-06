@@ -148,8 +148,8 @@ public class GetMarkerThread extends Thread
             @Override
             protected void onPostExecute(String result)
             {
-                _getData = result;
                 Log.d("onPostExecute", result);
+                _getData = result;
                 showList();
             }
         }
@@ -164,6 +164,7 @@ public class GetMarkerThread extends Thread
         ArrayList<Marker> _marker = new ArrayList<>();
         try
         {
+            Log.d("JSONOBJECT","GOGO");
             JSONObject jsonObj = new JSONObject(_getData);
             _jsonArray = jsonObj.getJSONArray(TAG_RESULTS);
 
